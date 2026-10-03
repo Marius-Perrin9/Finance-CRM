@@ -1,24 +1,21 @@
 # Marius Perrin CRM
 
-A small, beginner-friendly CRM for organizing business prospects. It uses plain HTML, CSS, and JavaScript, so there is no build step or package installation.
+## About
 
-## Run the app
+Created by Marius Perrin, a business school student interested in financial markets and structured products sales, this personal finance project explores how a lightweight CRM could help a structured products sales team organize relationships with clients such as private banks, asset managers, family offices, and wealth managers.
 
-Open `index.html` in a web browser. If your browser restricts saved data for local files, run a simple local web server from this folder instead, then open the local address it prints.
+The prototype captures key relationship details and areas of product interest, including Autocall, Reverse Convertible, and Capital Protected products. It was built with VS Code and GitHub Copilot as an experiment in using AI-assisted development to turn a business idea into a working prototype.
 
-## What it does
+## Finance-focused features
 
-- Add and edit a company, contact, email, phone number, status, last contact date, client type, product interest, next follow-up date, and notes.
-- Search prospects and filter them by status.
-- See a quick count of all prospects, active conversations, and clients.
-- Delete a prospect after confirming the action.
-- Export your prospect list as a CSV file for a spreadsheet.
-- Save your data in this browser with `localStorage`. Data is not sent to a server, and it will not automatically appear in a different browser or device.
+- Record client type and product interest.
+- Track prospect status, last contact, and next follow-up.
+- Keep notes alongside company and contact details.
+- Search prospects, filter by status, and export the list as CSV.
+- Store records in the current browser using `localStorage`.
 
-## Project files
+## Run the prototype
 
-- `index.html` contains the page structure and the prospect form.
-- `styles.css` controls the layout, colors, and responsive styling.
-- `app.js` handles form actions, searching, filtering, CSV export, and browser storage.
+Open `index.html` in a web browser. If your browser restricts saved data for local files, run a local web server from this folder and open the address it provides.
 
-This is a front-end learning project, not a shared or cloud-backed CRM. Avoid storing sensitive customer information in it.
+This is an exploratory front-end prototype, not a shared or cloud-backed CRM. Data stays in the browser where it was entered and does not automatically appear on other devices. Avoid storing sensitive customer information in it.
