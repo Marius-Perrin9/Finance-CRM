@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f6f7f9" />
+    <title>Marius Perrin CRM — Prospect Manager</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="#" aria-label="Marius Perrin CRM home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none">
+              <path d="M16 3.5 19.2 12.8 28.5 16l-9.3 3.2L16 28.5l-3.2-9.3L3.5 16l9.3-3.2L16 3.5Z" fill="currentColor" />
+              <circle cx="16" cy="16" r="3.1" fill="#fff" />
+            </svg>
+          </span>
+          <span class="brand-copy">
+            <strong>Marius Perrin</strong>
+            <span>CLIENT RELATIONSHIPS</span>
+          </span>
+        </a>
+
+        <div class="workspace-label">WORKSPACE</div>
+        <nav class="side-nav" aria-label="Main navigation">
+          <a class="nav-link active" href="#prospects" aria-current="page">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h16M4 12h16M4 18.5h16" /></svg>
+            <span>Prospects</span>
+            <span class="nav-count" id="nav-count">0</span>
+          </a>
+        </nav>
+
+        <div class="sidebar-note">
+          <div class="note-icon" aria-hidden="true">✦</div>
+          <strong>Small steps.<br />Lasting partnerships.</strong>
+          <p>Keep every conversation moving forward.</p>
+        </div>
+
+        <div class="sidebar-footer">
+          <span class="avatar avatar-brand" aria-hidden="true">MP</span>
+          <span class="profile-copy"><strong>My workspace</strong><small>Personal account</small></span>
+          <span class="online-dot" title="Ready"></span>
+        </div>
+      </aside>
+
+      <main class="main-content" id="prospects">
+        <header class="topbar">
+          <div class="breadcrumb"><span>Workspace</span><span class="breadcrumb-slash">/</span><strong>Prospects</strong></div>
+          <div class="topbar-right">
+            <span class="today-label" id="today-label"></span>
+            <span class="top-avatar" aria-label="Your profile">MP</span>
+          </div>
+        </header>
+
+        <section class="page-content" aria-labelledby="page-title">
+          <div class="page-heading">
+            <div>
+              <div class="eyebrow"><span class="eyebrow-line"></span> RELATIONSHIP OVERVIEW</div>
+              <h1 id="page-title">Prospects</h1>
+              <p class="page-subtitle">Build meaningful relationships, one conversation at a time.</p>
+            </div>
+            <button class="button button-primary" id="add-prospect-button" type="button">
+              <span class="plus-icon" aria-hidden="true">+</span> Add prospect
+            </button>
+          </div>
+
+          <section class="stats-grid" aria-label="Prospect summary">
+            <article class="stat-card">
+              <div class="stat-top"><span class="stat-label">Total prospects</span><span class="stat-icon icon-blue" aria-hidden="true">↗</span></div>
+              <strong class="stat-value" id="total-count">0</strong>
+              <span class="stat-caption">In your relationship pipeline</span>
+            </article>
+            <article class="stat-card">
+              <div class="stat-top"><span class="stat-label">In conversation</span><span class="stat-icon icon-amber" aria-hidden="true">◌</span></div>
+              <strong class="stat-value" id="conversation-count">0</strong>
+              <span class="stat-caption">Contacted or meeting scheduled</span>
+            </article>
+            <article class="stat-card">
+              <div class="stat-top"><span class="stat-label">Clients</span><span class="stat-icon icon-green" aria-hidden="true">✓</span></div>
+              <strong class="stat-value" id="client-count">0</strong>
+              <span class="stat-caption">Relationships won and growing</span>
+            </article>
+          </section>
+
+          <section class="prospects-panel" aria-labelledby="list-title">
+            <div class="panel-heading">
+              <div>
+                <h2 id="list-title">All prospects <span class="panel-count" id="list-count">0</span></h2>
+                <p>Your business relationships in one place.</p>
+              </div>
+              <button class="button button-secondary" id="export-button" type="button" title="Download your prospects as a CSV file">
+                <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3.5v8m0 0 3-3m-3 3-3-3M4.5 13v2.5h11V13" /></svg>
+                Export
+              </button>
+            </div>
+
+            <div class="toolbar">
+              <label class="search-box">
+                <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.7" cy="8.7" r="5.7" /><path d="m13 13 4 4" /></svg>
+                <input id="search-input" type="search" placeholder="Search prospects..." aria-label="Search prospects" />
+                <kbd>⌘ K</kbd>
+              </label>
+              <label class="filter-select">
+                <span class="sr-only">Filter by status</span>
+                <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M5.5 10h9M8 15h4" /></svg>
+                <select id="status-filter" aria-label="Filter by status">
+                  <option value="All">All statuses</option>
+                  <option value="Prospect">Prospect</option>
+                  <option value="Contacted">Contacted</option>
+                  <option value="Meeting">Meeting</option>
+                  <option value="Client">Client</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col">COMPANY</th>
+                    <th scope="col">CONTACT</th>
+                    <th scope="col">CLIENT TYPE</th>
+                    <th scope="col">PRODUCT INTEREST</th>
+                    <th scope="col">STATUS</th>
+                    <th scope="col">LAST CONTACT</th>
+                    <th scope="col">NEXT FOLLOW-UP</th>
+                    <th scope="col" class="actions-heading"><span class="sr-only">Actions</span></th>
+                  </tr>
+                </thead>
+                <tbody id="prospect-rows"></tbody>
+              </table>
+              <div class="empty-state" id="empty-state">
+                <div class="empty-icon" aria-hidden="true">
+                  <svg viewBox="0 0 36 36"><rect x="6" y="7" width="24" height="22" rx="4" /><path d="M12 14h12M12 19h8M18 3v8" /></svg>
+                </div>
+                <h3 id="empty-title">Your pipeline starts here</h3>
+                <p id="empty-copy">Add your first prospect to keep important business relationships organized.</p>
+                <button class="button button-primary button-small" id="empty-add-button" type="button">Add your first prospect</button>
+              </div>
+            </div>
+            <div class="table-footer"><span id="table-footer-copy">Showing 0 prospects</span><span class="secure-note"><span aria-hidden="true">●</span> Your data stays in this browser</span></div>
+          </section>
+
+          <footer class="page-footer">Made for thoughtful business growth <span aria-hidden="true">✦</span></footer>
+        </section>
+      </main>
+    </div>
+
+    <dialog class="prospect-dialog" id="prospect-dialog" aria-labelledby="dialog-title">
+      <form id="prospect-form">
+        <div class="dialog-heading">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-line"></span> RELATIONSHIP DETAILS</div>
+            <h2 id="dialog-title">Add a prospect</h2>
+            <p>Capture the details you need to make a great connection.</p>
+          </div>
+          <button class="icon-button close-dialog" type="button" aria-label="Close dialog">×</button>
+        </div>
+        <input type="hidden" id="prospect-id" />
+        <div class="form-grid">
+          <label class="form-field">
+            <span>Company name <b>*</b></span>
+            <input id="company-name" name="companyName" type="text" maxlength="100" placeholder="e.g. Acme Financial" required />
+          </label>
+          <label class="form-field">
+            <span>Contact name <b>*</b></span>
+            <input id="contact-name" name="contactName" type="text" maxlength="100" placeholder="e.g. Jordan Lee" required />
+          </label>
+          <label class="form-field">
+            <span>Email address</span>
+            <input id="email" name="email" type="email" maxlength="254" placeholder="jordan@company.com" />
+          </label>
+          <label class="form-field">
+            <span>Phone number</span>
+            <input id="phone" name="phone" type="tel" maxlength="30" placeholder="+1 (555) 000-0000" />
+          </label>
+          <label class="form-field">
+            <span>Status</span>
+            <select id="status" name="status">
+              <option>Prospect</option>
+              <option>Contacted</option>
+              <option>Meeting</option>
+              <option>Client</option>
+            </select>
+          </label>
+          <label class="form-field">
+            <span>Last contact date</span>
+            <input id="last-contact" name="lastContact" type="date" />
+          </label>
+          <label class="form-field">
+            <span>Client type</span>
+            <select id="client-type" name="clientType">
+              <option value="">Select client type</option>
+              <option>CGP</option>
+              <option>Private Bank</option>
+              <option>Institutional Investor</option>
+              <option>Family Office</option>
+            </select>
+          </label>
+          <label class="form-field">
+            <span>Product interest</span>
+            <select id="product-interest" name="productInterest">
+              <option value="">Select product interest</option>
+              <option>Autocall</option>
+              <option>Reverse Convertible</option>
+              <option>Phoenix</option>
+              <option>Other</option>
+            </select>
+          </label>
+          <label class="form-field">
+            <span>Next follow-up date</span>
+            <input id="next-follow-up" name="nextFollowUp" type="date" />
+          </label>
+          <label class="form-field form-field-wide">
+            <span>Notes</span>
+            <textarea id="notes" name="notes" rows="3" maxlength="1000" placeholder="Add a reminder or details about your conversation..."></textarea>
+          </label>
+        </div>
+        <div class="form-error" id="form-error" role="alert"></div>
+        <div class="dialog-actions">
+          <button class="button button-secondary close-dialog" type="button">Cancel</button>
+          <button class="button button-primary" type="submit" id="save-button">Save prospect</button>
+        </div>
+      </form>
+    </dialog>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
