@@ -392,17 +392,5 @@ document.querySelector("#today-label").textContent = new Intl.DateTimeFormat(und
   month: "short",
   day: "numeric",
 }).format(new Date());
-async function loadDemoProspects() {
-  if (prospects.length > 0) return;
-
-  try {
-    const response = await fetch("prospects-demo.csv");
-    const text = await response.text();
-
-    importCsvText(text);
-  } catch (error) {
-    console.error("Could not load demo prospects:", error);
-  }
-}
 loadDemoProspects();
 render();
