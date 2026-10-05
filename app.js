@@ -303,6 +303,24 @@ function importCsv(file) {
 
   reader.readAsText(file, "UTF-8");
 }
+async function loadDemoProspects() {
+    // Ne remplace pas les données si l'utilisateur en possède déjà
+    if (prospects.length > 0) return;
+
+    try {
+        const response = await fetch("prospects-demo.csv");
+        if (!response.ok) throw new Error("CSV not found");
+
+        const blob = await response.blob();
+        const file = new File([blob], "prospects-demo.csv", {
+            type: "text/csv"
+        });
+
+        importCsv(file);
+    } catch (error) {
+        console.error("Could not load demo prospects:", error);
+    }
+}
 function exportCsv() {
   const columns = [
     "Company name",
@@ -374,4 +392,17 @@ document.querySelector("#today-label").textContent = new Intl.DateTimeFormat(und
   month: "short",
   day: "numeric",
 }).format(new Date());
+async function loadDemoProspects() {
+  if (prospects.length > 0) return;
+
+  try {
+    const response = await fetch("prospects-demo.csv");
+    const text = await response.text();
+
+    importCsvText(text);
+  } catch (error) {
+    console.error("Could not load demo prospects:", error);
+  }
+}
+loadDemoProspects();
 render();
