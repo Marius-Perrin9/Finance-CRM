@@ -244,7 +244,65 @@ function handleRowAction(event) {
     showToast("Prospect deleted.");
   }
 }
+function importCsv(file) {
+  const reader = new FileReader();
 
+  reader.onload = (event) => {
+    const text = event.target.result;
+    const lines = text.split(/\r?\n/).filter((line) => line.trim());
+
+    // On saute la première ligne : les titres du CSV
+    const dataLines = lines.slice(1);
+
+    let imported = 0;
+
+    dataLines.forEach((line) => {
+      // Découpe le CSV en respectant les champs entre guillemets
+      const values = line.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g);
+
+      if (!values || values.length < 4) return;
+
+      const clean = (value) =>
+        (value || "").replace(/^"|"$/g, "").replace(/""/g, '"').trim();
+
+      const name = clean(values[0]);
+      const region = clean(values[1]);
+      const registrations = clean(values[2]);
+      const profileUrl = clean(values[3]);
+      const phone = clean(values[4]);
+      const email = clean(values[5]);
+      const website = clean(values[6]);
+      const address = clean(values[7]);
+
+      prospects.push({
+        id: crypto.randomUUID(),
+        companyName: name,
+        contactName: "",
+        email: email,
+        phone: phone,
+        status: "New",
+        lastContact: "",
+        clientType: "Wealth manager",
+        productInterest: registrations,
+        nextFollowUp: "",
+        notes: [
+          region && `Region: ${region}`,
+          profileUrl && `CNCEF: ${profileUrl}`,
+          website && `Website: ${website}`,
+          address && `Address: ${address}`
+        ].filter(Boolean).join(" | ")
+      });
+
+      imported++;
+    });
+
+    saveProspects();
+    render();
+    showToast(`${imported} prospects imported.`);
+  };
+
+  reader.readAsText(file, "UTF-8");
+}
 function exportCsv() {
   const columns = [
     "Company name",
@@ -291,6 +349,18 @@ elements.form.addEventListener("submit", handleSubmit);
 elements.rows.addEventListener("click", handleRowAction);
 elements.search.addEventListener("input", render);
 elements.filter.addEventListener("change", render);
+document.querySelector("#import-button").addEventListener("click", () => {
+  document.querySelector("#csv-file-input").click();
+});
+document.querySelector("#csv-file-input").addEventListener("change", (event) => {
+  const file = event.target.files[0];
+
+  if (file) {
+    importCsv(file);
+  }
+
+  event.target.value = "";
+});
 document.querySelector("#export-button").addEventListener("click", exportCsv);
 document.addEventListener("keydown", (event) => {
   if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
